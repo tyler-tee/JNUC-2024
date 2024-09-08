@@ -1,5 +1,5 @@
 import requests
-from typing import List, Dict
+from typing import Any, List, Dict
 
 
 class JamfClient:
@@ -183,6 +183,30 @@ class JamfClient:
         else:
             print('Failed to retrieve records')
             return [{'Error': f'Failed to retrieve records - {response.status_code}'}]
+
+    def get_computer_inventory_details(self, computer_id: str) -> Dict[str, Any]:
+        """
+        Retrieve detailed inventory information for a specific computer.
+
+        Args:
+        computer_id (str): The unique identifier for the computer.
+
+        Returns:
+        dict: API response containing detailed computer inventory or error details.
+        """
+        endpoint = f'/v1/computers-inventory/detail/{computer_id}'
+        response = self.session.get(f'{self.base_url}{endpoint}', headers=self.headers)
+
+        if response.status_code == 200:
+            return {'success': True, 'data': response.json()}
+        else:
+            return {
+                'success': False,
+                'status_code': response.status_code,
+                'reason': response.reason,
+                'message': "An error occurred while retrieving computer inventory details.",
+                'details': response.text
+            }
 
     def get_computer_group(self, name: str = None, id: int = None):
         """
