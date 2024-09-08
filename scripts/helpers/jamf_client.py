@@ -192,7 +192,7 @@ class JamfClient:
         if name:
             uri = f'/name/{name}'
         elif id:
-            uri = f'/name/{id}'
+            uri = f'/id/{id}'
         else:
             return None
 
