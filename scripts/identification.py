@@ -1,5 +1,5 @@
-from helpers.jamf_client import JamfClient
 import json
+from helpers.jamf_client import JamfClient
 
 
 def identification():
