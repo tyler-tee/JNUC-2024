@@ -46,28 +46,25 @@ class SlackClient:
             print("Slack Error: ", response.status_code, response.json())
             return False
 
-    def update_mesage(self, channel_id: str, timestamp: str,
-                      attachments: List = None, text: str = None) -> bool:
+    def update_message(self, response_url: str, blocks: list) -> bool:
         """
-        Update a message posted to Slack.
+        Update an existing message in Slack with new blocks.
+
+        Args:
+            response_url (str): The URL to update the message.
+            blocks (list): The updated message blocks.
+
+        Returns:
+            bool: True if the message was successfully updated, False otherwise.
         """
+        payload = {"blocks": blocks}
 
-        payload = {"channel": channel_id,
-                   "ts": timestamp}
+        response = self.session.post(response_url, json=payload)
 
-        if attachments or text:
-            payload["attachments"] = attachments if attachments else None
-            payload["text"] = text if text else None
-        else:
-            print("Slack Error: Must provide text or attachments to update message.")
-            return False
-
-        response = self.session.post(f"{self.base_url}/chat.update", json=payload)
-
-        if response.status_code == 200 and response.json()['ok'] is True:
+        if response.status_code == 200 and response.json()['ok']:
             return True
         else:
-            print("Slack Error: ", response.status_code, response.json())
+            print("Slack Error:", response.status_code, response.json())
             return False
 
     def find_user_by_email(self, email: str) -> str:
