@@ -1,0 +1,61 @@
+{
+	"type": "block_actions",
+	"user": {
+		"id": "user_id",
+		"username": "username",
+		"name": "user",
+		"team_id": "team_id"
+	},
+	"api_app_id": "A02",
+	"token": "Shh_its_a_seekrit",
+	"container": {
+		"type": "message",
+		"text": "The contents of the original message where the action originated"
+	},
+	"trigger_id": "12466734323.1395872398",
+	"team": {
+		"id": "team_id",
+		"domain": "domain"
+	},
+	"enterprise": null,
+	"is_enterprise_install": false,
+	"state": {
+		"values": {
+			"asset_recovery_response": {
+				"asset_recovery_initial": {
+					"type": "static_select",
+					"selected_option": {
+						"text": {
+							"type": "plain_text",
+							"text": "I want to send this system back",
+							"emoji": true
+						},
+						"value": "send_asset_back"
+					}
+				}
+			}
+		}
+	},
+	"response_url": "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX",
+	"actions": [
+		{
+			"type": "static_select",
+			"block_id": "asset_recovery_response",
+			"action_id": "asset_recovery_initial",
+			"selected_option": {
+				"text": {
+					"type": "plain_text",
+					"text": "I want to send this system back",
+					"emoji": true
+				},
+				"value": "send_asset_back"
+			},
+			"placeholder": {
+				"type": "plain_text",
+				"text": "Select an item",
+				"emoji": true
+			},
+			"action_ts": "1727553641.407475"
+		}
+	]
+}
