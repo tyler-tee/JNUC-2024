@@ -41,60 +41,63 @@ def send_direct_message(slack_token: str, email: str, serial_number: str):
 
     # Slack blocks with the serial number embedded in the message
     blocks = [
-        {
-            "type": "header",
-            "text": {
-                "type": "plain_text",
-                "text": "Asset Notification",
-                "emoji": True
-            }
-        },
-        {
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": f"Hello, our records indicate asset *{serial_number}* \
-                         hasn't checked into Jamf in a while. Do you still have this system?"
-            }
-        },
-        {
-            "type": "actions",
-            "elements": [
-                {
-                    "type": "static_select",
-                    "placeholder": {
-                        "type": "plain_text",
-                        "text": "Select an item",
-                        "emoji": True
-                    },
-                    "options": [
-                        {
-                            "text": {
-                                "type": "plain_text",
-                                "text": "I no longer have this system"
-                            },
-                            "value": "not_in_possession"
-                        },
-                        {
-                            "text": {
-                                "type": "plain_text",
-                                "text": "I still have this system"
-                            },
-                            "value": "asset_in_possession"
-                        },
-                        {
-                            "text": {
-                                "type": "plain_text",
-                                "text": "I don't recognize this system"
-                            },
-                            "value": "asset_unrecognized"
-                        }
-                    ],
-                    "action_id": "asset_recovery_initial"
+            {
+                "type": "header",
+                "block_id": "asset_recovery_header",
+                "text": {
+                    "type": "plain_text",
+                    "text": "This is a header block",
+                    "emoji": True
                 }
-            ]
-        }
-    ]
+            },
+            {
+                "type": "section",
+                "block_id": "asset_recovery_question",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "Hello, our records indicate asset {asset} hasn't checked into Jamf in a while. "
+                    "Do you still have this system?"
+                }
+            },
+            {
+                "type": "actions",
+                "block_id": "asset_recovery_response",
+                "elements": [
+                    {
+                        "type": "static_select",
+                        "placeholder": {
+                            "type": "plain_text",
+                            "text": "Select an item",
+                            "emoji": True
+                        },
+                        "options": [
+                            {
+                                "text": {
+                                    "type": "plain_text",
+                                    "text": "I no longer have this system"
+                                },
+                                "value": "not_in_possession"
+                            },
+                            {
+                                "text": {
+                                    "type": "plain_text",
+                                    "text": "I still have this system"
+                                },
+                                "value": "asset_in_possession"
+                            },
+                            {
+                                "text": {
+                                    "type": "plain_text",
+                                    "text": "I don't recognize this system"
+                                },
+                                "value": "asset_unrecognized"
+                            }
+                        ],
+                        "action_id": "asset_recovery_initial"
+                    }
+                ]
+            }
+        ]
 
     # Find user ID by email
     user_id = slack.find_user_by_email(email)
