@@ -13,24 +13,34 @@ class SlackClient:
                                 "Content-Type": "application/json"}
         self.session.verify = verify_cert
 
-    def send_message(self, channel_id: str,
-                     attachments: List = None, text: str = None) -> bool:
+    def send_message(self, channel_id: str, attachments: List = None, text: str = None, blocks: List = None) -> bool:
         """
-        Post a message to a Slack channel of your choosing.
-        """
+        Post a message to a Slack channel or user.
 
+        Args:
+            channel_id (str): The ID of the Slack channel or user to send the message to.
+            attachments (list, optional): Optional attachments for the message.
+            text (str, optional): Optional plain text for the message.
+            blocks (list, optional): Optional Slack block elements for rich messaging.
+
+        Returns:
+            bool: True if the message was successfully sent, False otherwise.
+        """
         payload = {"channel": channel_id}
 
-        if attachments or text:
-            payload["attachments"] = attachments if attachments else None
-            payload["text"] = text if text else None
+        if blocks:
+            payload["blocks"] = blocks
+        elif text:
+            payload["text"] = text
+        elif attachments:
+            payload["attachments"] = attachments
         else:
-            print("Slack Error: Must provide text or attachments to send message.")
+            print("Slack Error: Must provide text, attachments, or blocks to send a message.")
             return False
 
         response = self.session.post(f"{self.base_url}/chat.postMessage", json=payload)
 
-        if response.status_code == 200 and response.json()['ok'] is True:
+        if response.status_code == 200 and response.json()['ok']:
             return True
         else:
             print("Slack Error: ", response.status_code, response.json())
