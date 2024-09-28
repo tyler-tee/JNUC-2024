@@ -83,7 +83,7 @@ def send_direct_message(slack_token: str, email: str, serial_number: str):
                                     "type": "plain_text",
                                     "text": "I want to send this system back"
                                 },
-                                "value": "asset_in_possession"
+                                "value": "send_asset_back"
                             },
                             {
                                 "text": {
