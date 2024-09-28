@@ -1,7 +1,8 @@
-from helpers.jamf_client import JamfClient  # Import the JamfClient class from your module file
+from helpers.jamf_client import JamfClient
+import json
 
 
-def main():
+def identification():
     # Example credentials (replace with actual credentials for real use)
     username = 'example_username'
     password = 'example_password'
@@ -42,8 +43,11 @@ def main():
         else:
             print(f"Failed to retrieve inventory for computer ID {computer['id']}: {inventory_details['message']}")
 
-    print("All retrieved computer details:", all_computer_details)
+    with open('identification.json', 'w') as f:
+        f.write(json.dumps(all_computer_details, indent=4))
+
+    return all_computer_details
 
 
 if __name__ == "__main__":
-    main()
+    identification()
