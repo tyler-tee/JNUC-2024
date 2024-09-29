@@ -161,6 +161,16 @@ Retrieve computer data for asset identification.
 [/JSSResource/computers/id/{id}](https://developer.jamf.com/jamf-pro/reference/deletecomputerbyid)  
 Delete a computer record from Jamf Pro after recovery.
 
+**Response**
+
+```
+{
+  "computer": {
+    "id": "1"
+  }
+}
+```
+
 
 ## Slack
 
