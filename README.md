@@ -27,10 +27,20 @@ This repository serves as the companion content for the **JNUC 2024** session _"
 
 You must configure your API credentials prior to use:
 
-1. Slack
+1. Airtable
 2. FedEx
-3. Airtable
-4. Jamf Pro
+3. Jamf Pro
+4. Slack
+
+## Alternate Libraries
+
+- Airtable
+  - [PyAirtable](https://github.com/gtalarico/pyairtable)
+- Jamf Pro
+  - [Python SDK](https://github.com/macadmins/jamf-pro-sdk-python)
+  - [Go SDK](https://github.com/deploymenttheory/go-api-sdk-jamfpro)
+- Slack
+  - [Python SDK](https://github.com/slackapi/python-slack-sdk)
 
 ## License
 
