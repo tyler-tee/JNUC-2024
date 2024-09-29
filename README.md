@@ -222,6 +222,27 @@ Update an existing message with new content.
 }
 ```
 
+**POST**  
+[/users.lookupByEmail](https://api.slack.com/methods/users.lookupByEmail)  
+Find a user by their email address.
+
+**Response**
+
+```
+{
+    "ok": true,
+    "user": {
+        "id": "U123ABC456",
+        "team_id": "T123ABC456",
+        "name": "john.doe",
+        "real_name": "John Doe",
+        "profile": {
+            "email": "john.doe@example.com"
+        }
+    }
+}
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
