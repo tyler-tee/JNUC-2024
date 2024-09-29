@@ -1,6 +1,6 @@
 # JNUC-2024
 
-This repository serves as the companion content for the **JNUC 2024** session _"Asset Recovery in a Remote World"_. The session covers strategies and technologies for reclaiming distributed assets in a remote work environment, focusing on streamlining the process through automation and integration with various platforms.
+This repository is setup to host companion content for the **JNUC 2024** session _"Asset Recovery in a Remote World"_. The session covers strategies and technologies for reclaiming distributed assets in a remote work environment, focusing on streamlining the process through automation and integration with various platforms.
 
 
 ## Repository Structure
