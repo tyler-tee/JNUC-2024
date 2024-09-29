@@ -42,6 +42,176 @@ You must configure your API credentials prior to use:
 - Slack
   - [Python SDK](https://github.com/slackapi/python-slack-sdk)
 
+
+## Endpoints of Interest
+
+
+## Airtable
+
+**GET**  
+[/v0/appXXXXXXXXXX/Table](https://airtable.com/developers/web/api/list-records)  
+Retrieve records from the specified table.
+
+**Response**
+
+```
+{
+  "records": [
+    {
+      "createdTime": "TIMESTAMP",
+      "fields": {
+        "Address": "123 Main St",
+        "Name": "Main Street",
+        "Visited": true
+      },
+      "id": "record_id"
+    },
+    ...
+  ]
+}
+```
+
+**POST**  
+[/v0/appXXXXXXXXXX/Table](https://airtable.com/developers/web/api/create-records)  
+Create a new record in the table.
+
+**Response**
+
+```
+{
+  "records": [
+    {
+      "createdTime": "TIMESTAMP",
+      "fields": {
+        "Address": "123 Main St",
+        "Name": "Main Street",
+        "Visited": true
+      },
+      "id": "record_id"
+    },
+    ...
+  ]
+}
+```
+
+## FedEx
+
+**POST**  
+[/ship/v1/shipments](https://developer.fedex.com/api/en-us/catalog/ship/v1/docs.html#operation/Create%20Shipment)  
+Generate shipping labels for asset returns.
+
+**Response**
+
+```
+{
+  "transactionId": "624deea6-b709-470c-8c39-4b5511281492",
+  "customerTransactionId": "AnyCo_order123456789",
+  "output": {
+    "cancelledTag": true,
+    "successMessage": "success"
+  }
+}
+```
+
+**POST**  
+[/track/v1/trackingnumbers](https://developer.fedex.com/api/en-us/catalog/track/v1/docs.html#operation/Track%20by%20Tracking%20Number)  
+Retrieve shipment status based on tracking numbers.
+
+**Response**
+
+```
+{
+  "transactionId": "624deea6-b709-470c-8c39-4b5511281492",
+  "customerTransactionId": "AnyCo_order123456789",
+  "output": {
+    "completeTrackResults": [
+      {
+        "trackingNumber": "123456789012",
+        "trackResults": [
+          {}
+        ]
+      }
+    ],
+    "alerts": "TRACKING.DATA.NOTFOUND -  Tracking data unavailable"
+  }
+}
+```
+
+## Jamf Pro
+
+**GET**  
+[/JSSResource/computers](https://developer.jamf.com/jamf-pro/reference/findcomputers)  
+Retrieve computer data for asset identification.
+
+**Response**
+
+```
+[
+  {
+    "size": 1,
+    "computer": {
+      "id": 1,
+      "name": "string"
+    }
+  }
+]
+```
+
+**DELETE**  
+[/JSSResource/computers/id/{id}](https://developer.jamf.com/jamf-pro/reference/deletecomputerbyid)  
+Delete a computer record from Jamf Pro after recovery.
+
+
+## Slack
+
+**POST**  
+[/chat.postMessage](https://api.slack.com/methods/chat.postMessage)  
+Send a message to a Slack channel or direct message.
+
+**Response**
+
+```
+{
+    "ok": true,
+    "channel": "C123ABC456",
+    "ts": "1503435956.000247",
+    "message": {
+        "text": "Here's a message for you",
+        "username": "ecto1",
+        "bot_id": "B123ABC456",
+        "attachments": [
+            {
+                "text": "This is an attachment",
+                "id": 1,
+                "fallback": "This is an attachment's fallback"
+            }
+        ],
+        "type": "message",
+        "subtype": "bot_message",
+        "ts": "1503435956.000247"
+    }
+}
+```
+
+**POST**  
+[/chat.update](https://api.slack.com/methods/chat.update)  
+Update an existing message with new content.
+
+**Response**
+
+```
+{
+    "ok": true,
+    "channel": "C123ABC456",
+    "ts": "1401383885.000061",
+    "text": "Updated text you carefully authored",
+    "message": {
+        "text": "Updated text you carefully authored",
+        "user": "U34567890"
+    }
+}
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
