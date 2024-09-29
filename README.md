@@ -157,6 +157,42 @@ Retrieve computer data for asset identification.
 ]
 ```
 
+**GET**  
+[/api/v1/computers-inventory-detail/{id}](https://developer.jamf.com/jamf-pro/reference/get_v1-computers-inventory-detail-id)  
+Return all sections of a computer.
+
+**Response**
+```
+{
+  "id": "1",
+  "udid": "123",
+  "general": { ... },
+  "diskEncryption": { ... },
+  "purchasing": { ... },
+  "applications": [ ... ],
+  "storage": { ... },
+  "userAndLocation": { ... },
+  "configurationProfiles": [ ... ],
+  "printers": [ ... ],
+  "services": [ ... ],
+  "hardware": { ... },
+  "localUserAccounts": [ ... ],
+  "certificates": [ ... ],
+  "attachments": [ ... ],
+  "plugins": [ ... ],
+  "packageReceipts": { ... },
+  "fonts": [ ... ],
+  "security": { ... },
+  "operatingSystem": { ... },
+  "licensedSoftware": [ ... ],
+  "ibeacons": [ ... ],
+  "softwareUpdates": [ ... ],
+  "extensionAttributes": [ ... ],
+  "contentCaching": { ... },
+  "groupMemberships": [ ... ]
+}
+```
+
 **DELETE**  
 [/JSSResource/computers/id/{id}](https://developer.jamf.com/jamf-pro/reference/deletecomputerbyid)  
 Delete a computer record from Jamf Pro after recovery.
