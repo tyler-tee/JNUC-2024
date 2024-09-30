@@ -255,6 +255,25 @@ class JamfClient:
             print('Computer group creation failed!')
             return {'Error': 'Computer group creation failed!'}
 
+    def delete_computer(self, computer_id: str) -> bool:
+        """
+        Delete a computer record from Jamf Pro.
+
+        Args:
+        computer_id (str): The unique identifier for the computer.
+
+        Returns:
+        bool: True if the computer was successfully deleted, False otherwise.
+        """
+        response = self.session.delete(f'{self.base_url_classic}/computers/id/{computer_id}')
+
+        if response.status_code == 200:
+            print(f"Computer with ID {computer_id} deleted successfully.")
+            return True
+        else:
+            print(f"Failed to delete computer: {response.status_code} - {response.text}")
+            return False
+
     def deploy_app_installer(self, jai_name: str, jai_id: str,
                              smart_group_id: str, notification_interval: int = 24,
                              install_config_profiles: bool = True):
