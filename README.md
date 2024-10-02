@@ -8,15 +8,15 @@ This repository is setup to host companion content for the **JNUC 2024** session
 ## Repository Structure
 
 - `scripts/`
-  - `identification.py` - Script to identify and prepare user data for communication.
-  - `communication.py` - Script for sending notifications to users via Slack to check the status of their assets.
-  - `reclamation.py` - Script for processing user responses and generating FedEx return labels if necessary.
+  - `identification.py` - Identify and prepare user data for communication.
+  - `communication.py` - Sending notifications to users via Slack to check their asset(s) status.
+  - `reclamation.py` - Processing user responses and generate FedEx return labels if necessary.
   - `sample_slack_response.json` - Sample JSON file that mimics a response from Slack's interactive components.
-- `helpers/`
-  - `airtable_client.py` - Client module for interacting with Airtable API.
-  - `fedex_client.py` - Client module for interacting with FedEx API to generate return labels.
-  - `jamf_client.py` - Client module for interacting with Jamf API to manage and retrieve system data.
-  - `slack_client.py` - Client module for handling communication with Slack users via the Slack API.
+  - `helpers/` - Helper modules to facilitate intercation with the various API's described below.
+    - `airtable_client.py`
+    - `fedex_client.py`
+    - `jamf_client.py`
+    - `slack_client.py`
 
 ## Setup
 
