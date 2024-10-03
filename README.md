@@ -31,10 +31,11 @@ You must configure your API credentials prior to use:
 
 1. [Airtable](https://airtable.com/developers/web/api/authentication)
 2. [FedEx](https://developer.fedex.com/api/en-us/get-started.html)
-3. [Jamf Pro](https://learn.jamf.com/en-US/bundle/jamf-pro-documentation-current/page/API_Roles_and_Clients.html?utm_source=google&utm_medium=cpc&utm_content=17810239897_141711808040_jamf+api_p_c_g_705452156101&gad_source=1&gclid=CjwKCAjw9eO3BhBNEiwAoc0-jVldawpm0NOtGpSciB0uQbhxz6XKlZT9kiF0ei1cWfk7cjCyS13ZnBoCo_wQAvD_BwE)
+3. [Jamf Pro](https://learn.jamf.com/en-US/bundle/jamf-pro-documentation-current/page/API_Roles_and_Clients.html)
 4. [Slack](https://www.lambdasandlapdogs.com/blog/building-slack-apps-with-tines-part-1)
 
 ## Alternate Libraries
+Please don't hesitate to use these if you have use cases that extend beyond those mentioned here. They are far more fully-featured than the helper modules I've written! Just be aware that the response format will vary and require a bit of script modification to implement.
 
 - Airtable
   - [PyAirtable](https://github.com/gtalarico/pyairtable)
