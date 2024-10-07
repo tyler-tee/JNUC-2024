@@ -366,3 +366,49 @@ class JamfClient:
             print("Error retrieving App Installers",
                   response.status_code,
                   response.content)
+
+    def find_asset_by_serial(self, serial_number: str) -> Any:
+        """
+        Find a computer by its serial number.
+
+        Args:
+        serial_number (str): The serial number of the computer.
+
+        Returns:
+        dict: API response containing computer details or error details.
+        """
+        url = f'{self.base_url_classic}/computers/serialnumber/{serial_number}'
+        response = self.session.get(url, headers=self.headers)
+
+        if response.status_code == 200:
+            computer = response.json()
+            return computer.get('computer', None)  # Returns computer object if found
+        else:
+            print(f"Failed to find computer by serial number: {serial_number}")
+            return None
+
+    def wipe_asset(self, computer_id: str) -> bool:
+        """
+        Send a wipe command to a computer in Jamf.
+
+        Args:
+        computer_id (str): The unique ID of the computer.
+
+        Returns:
+        bool: True if the wipe command was successfully sent, False otherwise.
+        """
+        url = f'{self.base_url_classic}/computercommands/command/WipeDevice/id/{computer_id}'
+        payload = {
+            "wipe_device": {
+                "clear_activation_lock": True  # Adjust based on your requirements
+            }
+        }
+
+        response = self.session.post(url, headers=self.headers, json=payload)
+
+        if response.status_code == 200:
+            print(f"Successfully sent wipe command for computer ID {computer_id}")
+            return True
+        else:
+            print(f"Failed to send wipe command for computer ID {computer_id}: {response.status_code} - {response.text}")
+            return False
