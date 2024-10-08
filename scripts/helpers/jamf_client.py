@@ -367,7 +367,7 @@ class JamfClient:
                   response.status_code,
                   response.content)
 
-    def find_asset_by_serial(self, serial_number: str) -> Any:
+    def get_computer_by_serial(self, serial_number: str) -> Any:
         """
         Find a computer by its serial number.
 
@@ -387,28 +387,87 @@ class JamfClient:
             print(f"Failed to find computer by serial number: {serial_number}")
             return None
 
-    def wipe_asset(self, computer_id: str) -> bool:
+    def erase_device(self, computer_id: str, passcode: str) -> Dict[str, Any]:
         """
-        Send a wipe command to a computer in Jamf.
+        Sends an 'EraseDevice' command to a specified computer using the Classic API.
 
         Args:
-        computer_id (str): The unique ID of the computer.
+        computer_id (str): The unique identifier for the computer.
+        passcode (str): Required passcode for device erase, required for devices like iOS.
 
         Returns:
-        bool: True if the wipe command was successfully sent, False otherwise.
+        dict: API response containing the result of the erase command or error details.
         """
-        url = f'{self.base_url_classic}/computercommands/command/WipeDevice/id/{computer_id}'
-        payload = {
-            "wipe_device": {
-                "clear_activation_lock": True  # Adjust based on your requirements
-            }
-        }
+        # Construct the endpoint for the Classic API
+        endpoint = f'/computercommands/command/EraseDevice/passcode/{passcode}/id/{computer_id}'
 
-        response = self.session.post(url, headers=self.headers, json=payload)
+        # Send the POST request to issue the erase command
+        response = self.session.post(f'{self.base_url_classic}{endpoint}')
 
-        if response.status_code == 200:
-            print(f"Successfully sent wipe command for computer ID {computer_id}")
-            return True
+        # Check for the correct success status code: 201 (Created)
+        if response.status_code == 201:
+            return {'success': True, 'data': response.json()}
         else:
-            print(f"Failed to send wipe command for computer ID {computer_id}: {response.status_code} - {response.text}")
-            return False
+            return {
+                'success': False,
+                'status_code': response.status_code,
+                'reason': response.reason,
+                'message': "An error occurred while sending the erase command.",
+                'details': response.text
+            }
+
+    def check_mdm_command_status(self, statusuuid: str) -> Dict[str, Any]:
+        """
+        Checks the status of an MDM command using the Classic API.
+
+        Args:
+        statusuuid (str): The unique identifier (UUID) for the command status.
+
+        Returns:
+        dict: API response containing the command status or error details.
+        """
+        # Construct the endpoint for checking the status of the command using the status UUID
+        endpoint = f'/computercommands/status/{statusuuid}'
+
+        # Send the GET request to retrieve the MDM command status
+        response = self.session.get(f'{self.base_url_classic}{endpoint}')
+
+        # Check for success status code: 200 (OK)
+        if response.status_code == 200:
+            return {'success': True, 'data': response.json()}
+        else:
+            return {
+                'success': False,
+                'status_code': response.status_code,
+                'reason': response.reason,
+                'message': f'Failed to retrieve status for command with UUID {statusuuid}.',
+                'details': response.text
+            }
+
+    def delete_device(self, computer_id: str) -> Dict[str, Any]:
+        """
+        Deletes a computer from Jamf Pro using the Classic API.
+
+        Args:
+        computer_id (str): The unique identifier for the computer to be deleted.
+
+        Returns:
+        dict: API response confirming the deletion or containing error details.
+        """
+        # Construct the endpoint for deleting the computer
+        endpoint = f'/computers/id/{computer_id}'
+
+        # Send the DELETE request to remove the computer
+        response = self.session.delete(f'{self.base_url_classic}{endpoint}')
+
+        # Check for success status code: 200 (OK)
+        if response.status_code == 200:
+            return {'success': True, 'message': f'Computer with ID {computer_id} deleted successfully.'}
+        else:
+            return {
+                'success': False,
+                'status_code': response.status_code,
+                'reason': response.reason,
+                'message': f'Failed to delete computer with ID {computer_id}.',
+                'details': response.text
+            }
